@@ -17,17 +17,20 @@ class Square(Shape):
         docstring
         :return:
         """
-        pass
+        return self.rid_length*self.rid_length
+
     def get_perimeter(self):
         """
         docstring
         :return:
         """
-        pass
+        return self.rid_length*4
+
     def to_dict(self):
         """
         docstring
         :return:
         """
-        dicti = {"id": 0, "type": "shape type", "length": self.rid_length}
-        pass
+        dicti = {"id": self.shape_id, "type": self.shape_type, "length": self.rid_length}
+        # TO DO
+        return dicti

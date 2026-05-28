@@ -2,6 +2,7 @@
 docstring
 """
 from shape import Shape
+from math import pi, pow
 
 
 class Circle(Shape):
@@ -11,7 +12,7 @@ class Circle(Shape):
         :param shape_id:
         :param radius:
         """
-        super().__init__(shape_id, shape_type="square")
+        super().__init__(shape_id, shape_type="circle")
         self.radius = radius
 
     def get_area(self):
@@ -19,19 +20,22 @@ class Circle(Shape):
         docstring
         :return:
         """
-        pass
+        return pow(self.radius, 2) * pi
+
 
     def get_perimeter(self):
         """
         docstring
         :return:
         """
-        pass
+        return self.radius * 2 * pi
+
 
     def to_dict(self):
         """
         docstring
         :return:
         """
-        dicti = {"id": 0, "type": "shape type", "radius": self.radius}
-        pass
+        dicti = {"id": self.shape_id, "type": self.shape_type, "radius": self.radius}
+        return dicti
+

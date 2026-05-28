@@ -9,7 +9,9 @@ class Shape:
         shape_id
         shape_type
         """
-        pass
+        self.shape_id = shape_id
+        self.shape_type = shape_type
+
     def get_area(self):
         """
         docstring
@@ -27,5 +29,5 @@ class Shape:
         docstring
         :return:
         """
-        dicti={"id": 0, "type": "shape type"}
+        # dicti={"id": 0, "type": "shape type"}
         pass

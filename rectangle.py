@@ -12,7 +12,7 @@ class Rectangle(Shape):
         :param length:
         :param width:
         """
-        super().__init__(shape_id, shape_type="square")
+        super().__init__(shape_id, shape_type="rectangle")
         self.length = length
         self.width=width
 
@@ -21,19 +21,19 @@ class Rectangle(Shape):
         docstring
         :return:
         """
-        pass
+        return self.length * self.width
 
     def get_perimeter(self):
         """
         docstring
         :return:
         """
-        pass
+        return (self.length+self.width) *2
 
     def to_dict(self):
         """
         docstring
         :return:
         """
-        dicti = {"id": 0, "type": "shape type", "length": self.length, "width": self.width}
-        pass
+        dicti = {"id": self.shape_id, "type": self.shape_type, "length": self.length, "width": self.width}
+        return dicti

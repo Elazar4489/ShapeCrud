@@ -1,0 +1,7 @@
+2026-05-28 12:28:19,931 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-28 12:29:23,790 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-28 12:31:01,124 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-28 12:31:05,171 | INFO | shape manager project | Successfully created a new square with ID: 3.
+2026-05-28 12:31:15,752 | WARNING | shape manager project | Shape ID 2 has been permanently deleted from the system.
+2026-05-28 12:31:28,693 | WARNING | shape manager project | Shape ID 1 was successfully updated.
+2026-05-28 12:31:32,202 | INFO | shape manager project | Application shutting down. All shape data successfully saved to JSON file.
