@@ -8,7 +8,8 @@
 #             print(message)
 
 def user_input(txt):
+
     try:
         return input(txt)
     except ValueError:
-        print("kkk")
+        print("value error! try again!")

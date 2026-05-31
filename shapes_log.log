@@ -5,3 +5,17 @@
 2026-05-28 12:31:15,752 | WARNING | shape manager project | Shape ID 2 has been permanently deleted from the system.
 2026-05-28 12:31:28,693 | WARNING | shape manager project | Shape ID 1 was successfully updated.
 2026-05-28 12:31:32,202 | INFO | shape manager project | Application shutting down. All shape data successfully saved to JSON file.
+2026-05-29 12:39:46,860 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-29 12:39:54,335 | INFO | shape manager project | Successfully created a new square with ID: 4.
+2026-05-29 12:40:21,356 | INFO | shape manager project | System initialized. Loaded 0 shapes from file.
+2026-05-29 12:40:27,360 | INFO | shape manager project | Successfully created a new square with ID: 1.
+2026-05-29 12:40:41,851 | INFO | shape manager project | Successfully created a new rectangle with ID: 2.
+2026-05-29 12:40:54,562 | WARNING | shape manager project | Shape ID 1 was successfully updated.
+2026-05-29 12:41:07,469 | INFO | shape manager project | Application shutting down. All shape data successfully saved to JSON file.
+2026-05-29 12:56:35,822 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-29 13:00:39,313 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-29 13:01:44,713 | INFO | shape manager project | System initialized. Loaded 2 shapes from file.
+2026-05-29 13:01:50,735 | INFO | shape manager project | Successfully created a new rectangle with ID: 3.
+2026-05-29 13:03:42,734 | INFO | shape manager project | System initialized. Loaded 0 shapes from file.
+2026-05-29 13:04:00,321 | INFO | shape manager project | Successfully created a new square with ID: 1.
+2026-05-29 13:05:33,623 | INFO | shape manager project | System initialized. Loaded 0 shapes from file.

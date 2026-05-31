@@ -12,7 +12,7 @@ def main():
     :return:
     """
     shape_manager1 = ShapeManager()
-    logger.info(f"System initialized. Loaded {len(shape_manager1.shapes)} shapes from file.")
+    # logger.info(f"System initialized. Loaded {len(shape_manager1.shapes)} shapes from file.")
 
     flag=True
     while flag:
@@ -31,39 +31,40 @@ def main():
                       "3. circle")
                 idd = shape_manager1.return_id()
                 the_shape = shape_manager1.create_shape(user_input("choos a shape: "), idd)
-                shape_manager1.shapes.append(the_shape)
-                logger.info(f"Successfully created a new {the_shape["type"]} with ID: {the_shape["id"]}.")
-                continue
+                if the_shape:
+                    shape_manager1.shapes.append(the_shape)
+                # logger.info(f"Successfully created a new {the_shape["type"]} with ID: {the_shape["id"]}.")
 
             elif user_choice == "3":
                 shape_updated=shape_manager1.update_shape(int(user_input("enter the shape id: ")))
-                if shape_updated:
-                    logger.warning(f"Shape ID {shape_updated["id"]} was successfully updated.")
-                continue
+                if not shape_updated:
+                    print("invalid")
+
+                # logger.warning(f"Shape ID {shape_updated["id"]} was successfully updated.")
+
 
             elif user_choice == "4":
                 shape_id=int(user_input("enter the shape id: "))
                 shape_manager1.delete_shape(shape_id)
-                logger.warning(f"Shape ID {shape_id} has been permanently deleted from the system.")
-                continue
-            shape_manager1.save_to_json()
+                # logger.warning(f"Shape ID {shape_id} has been permanently deleted from the system.")
 
-        except AttributeError, ValueError:
+
+
+            elif user_choice == "2":
+                print(shape_manager1.get_all_shapes())
+                # logger.debug("All shapes requested. Displaying current shape registry.")
+
+            elif user_choice == "5":
+                shape_manager1.save_to_json()
+                flag= False
+                # logger.info(f"Application shutting down. All shape data successfully saved to JSON file.")
+
+            else:
+                print("invalid choice!!!\n"
+                      "try again\n ")
+
+        except (AttributeError, ValueError):
             print("invalid data")
-
-        if user_choice == "2":
-            print(shape_manager1.get_all_shapes())
-            logger.debug("All shapes requested. Displaying current shape registry.")
-            continue
-
-        elif user_choice == "5":
-            flag= False
-            logger.info(f"Application shutting down. All shape data successfully saved to JSON file.")
-            continue
-
-        else:
-            print("invalid choice!!!\n"
-                  "try again\n ")
 
 
 if __name__=="__main__":

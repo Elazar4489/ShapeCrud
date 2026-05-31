@@ -1,13 +1,18 @@
 [
     {
         "id": 1,
+        "type": "square",
+        "length": 4
+    },
+    {
+        "id": 2,
         "type": "rectangle",
-        "length": "5",
-        "width": 3
+        "length": 2,
+        "width": 5
     },
     {
         "id": 3,
         "type": "square",
-        "length": "5"
+        "length": 2
     }
 ]
