@@ -5,7 +5,7 @@ from shape import Shape
 
 
 class Rectangle(Shape):
-    def __init__(self, shape_id, length, width):
+    def __init__(self, shape_id: int, sizes: dict):
         """
         docstring
         :param shape_id:
@@ -13,8 +13,8 @@ class Rectangle(Shape):
         :param width:
         """
         super().__init__(shape_id, shape_type="rectangle")
-        self.length = length
-        self.width=width
+        self.length = int(sizes["length"])
+        self.width=int(sizes["width"])
 
     def get_area(self):
         """

@@ -6,14 +6,14 @@ from math import pi, pow
 
 
 class Circle(Shape):
-    def __init__(self, shape_id, radius):
+    def __init__(self, shape_id: int, sizes: dict):
         """
         docstring
         :param shape_id:
         :param radius:
         """
         super().__init__(shape_id, shape_type="circle")
-        self.radius = radius
+        self.radius = int(sizes["radius"])
 
     def get_area(self):
         """

@@ -1,40 +1,28 @@
 [
     {
         "id": 1,
-        "type": "circle",
-        "radius": 5
-    },
-    {
-        "id": 2,
         "type": "square",
         "length": 5
     },
     {
+        "id": 2,
+        "type": "rectangle",
+        "length": 4,
+        "width": 7
+    },
+    {
         "id": 3,
-        "type": "square",
-        "length": 9
+        "type": "circle",
+        "radius": 8
     },
     {
         "id": 4,
-        "type": "rectangle",
-        "length": 6,
-        "width": 8
+        "type": "circle",
+        "radius": 13
     },
     {
         "id": 5,
-        "type": "rectangle",
-        "length": 6,
-        "width": 8
-    },
-    {
-        "id": 6,
-        "type": "rectangle",
-        "length": 60,
-        "width": 18
-    },
-    {
-        "id": 7,
         "type": "square",
-        "length": 9
+        "length": 29
     }
 ]

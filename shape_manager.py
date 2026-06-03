@@ -1,9 +1,7 @@
 import os.path
-from shape import Shape
 from square import Square
 from rectangle import Rectangle
 from circle import Circle
-from utils import user_input
 import json
 import logging
 
@@ -40,29 +38,23 @@ class ShapeManager:
 #==========================================2==============================================#
 
     def create_shape(self, shape: dict):
-        """
-        docstring
-        :param shape:
-        :return:
-        """
+        classes={
+            "square": Square,
+            "rectangle": Rectangle,
+            "circle": Circle
+        }
+        the_type=shape["type"]
+        shape_id=self.return_id()
         try:
-            shape_id = self.return_id()
-            new_shape=self.create_shapes(shape_id,shape)
-            self.shapes.append(new_shape)
-            return new_shape
+            new_shape=classes[the_type](shape_id, shape)
         except KeyError:
             raise KeyError
+        except ValueError:
+            raise ValueError
+        self.shapes.append(new_shape)
+        return new_shape
 
-    # def create_shape(self, shape, shape_id):
-    #     """
-    #     docstring
-    #     :param shape:
-    #     :return:
-    #     """
-    #     shape = self.check_choice(shape, shape_id)
-    #     return shape
-
-#==========================================3==============================================#
+# #==========================================3==============================================#
 
     def get_all_shapes(self):
         """
@@ -72,42 +64,25 @@ class ShapeManager:
         """
         return [shape.to_dict() for shape in self.shapes]
 
+# #==========================================4==============================================#
 
+    def update_shape(self, shape_id: int, new_data: dict):
 
-#==========================================4==============================================#
-
-    def update_shape(self, shape_id, new_data):
+        classes = {
+            "square": Square,
+            "rectangle": Rectangle,
+            "circle": Circle
+        }
+        the_type = new_data["type"]
         try:
-            update_obj=self.create_shapes(shape_id,new_data)
-            obj = self.return_object_by_id(shape_id)
-            self.shapes[self.shapes.index(obj)]=update_obj
-            return update_obj
+            new_shape = classes[the_type](shape_id, new_data)
         except KeyError:
             raise KeyError
-        except ValueError:
-            raise ValueError
+        old_shape=self.return_object_by_id(shape_id)
+        self.shapes[old_shape[1]]=new_shape
+        return new_shape
 
-
-
-
-
-    # def update_shape(self, shape_id):
-    #     """
-    #     docstring
-    #     תפקידה ליצור צורה חדשה
-    #     :param shape_id: מקבלת מספר מזהה ייחודי (ע"י הפונקצייה למעלה)
-    #     :return:
-    #     """
-    #     obj = self.return_object_by_id(shape_id)
-    #     if not obj:
-    #         return None
-    #     dict_of_type_objs={"square": "1", "rectangle": "2", "circle": "3"}
-    #     update=self.create_shape(dict_of_type_objs[obj.shape_type],shape_id)
-    #     self.shapes[self.shapes.index(obj)]=update
-    #     return "The shape updated"
-
-
-#==========================================5==============================================#
+# #==========================================5==============================================#
 
     def delete_shape(self, shape_id):
         """
@@ -118,10 +93,19 @@ class ShapeManager:
         the_shape=self.return_object_by_id(shape_id)
         if not the_shape:
             raise KeyError
-        self.shapes.remove(the_shape)
+        self.shapes.remove(the_shape[0])
         return the_shape
 
-#==========================================6==============================================#
+# #==========================================6==============================================#
+    def get_one_shape(self, shape_id):
+
+        return self.return_object_by_id(shape_id)[0].to_dict()
+
+
+    def get_sum_area(self):
+        list_of_area_shapes=[shape.get_area() for shape in self.shapes]
+        return sum(list_of_area_shapes)
+# #==========================================6==============================================#
 
     def save_to_json(self):
         """
@@ -131,7 +115,7 @@ class ShapeManager:
         with open("shapes.json", "w") as file:
             json.dump([shape.to_dict() for shape in self.shapes], file, indent=4)
 
-#==========================================7==============================================#
+# #==========================================7==============================================#
 
     def load_from_json(self):
         """
@@ -141,44 +125,24 @@ class ShapeManager:
         if os.path.isfile("shapes.json") and os.path.getsize("shapes.json") > 0:
             with open("shapes.json", "r") as file:
                 list_of_dicts_of_shapes=list(json.load(file))
+            classes = {"square": Square, "rectangle": Rectangle, "circle": Circle}
             for shape in list_of_dicts_of_shapes:
-                if shape["type"]=="square":
-                    self.shapes.append(Square(shape["id"], shape["length"]))
-                elif shape["type"]=="rectangle":
-                    self.shapes.append(Rectangle(shape["id"], shape["length"],shape["width"]))
-                elif shape["type"]=="circle":
-                    self.shapes.append(Circle(shape["id"], shape["radius"]))
+                the_type = shape["type"]
+                self.shapes.append(classes[the_type](shape["id"], shape))
+                # if shape["type"]=="square":
+                #     self.shapes.append(Square(shape["id"], shape["length"]))
+                # elif shape["type"]=="rectangle":
+                #     self.shapes.append(Rectangle(shape["id"], shape["length"],shape["width"]))
+                # elif shape["type"]=="circle":
+                #     self.shapes.append(Circle(shape["id"], shape["radius"]))
 
 
-    def get_one_shape(self, shape_id):
-        try:
-            return self.return_object_by_id(shape_id).to_dict()
-        except AttributeError:
-            raise AttributeError
+    def return_object_by_id(self, shape_id):
+        for index, shape in enumerate(self.shapes):
+            if shape.shape_id == shape_id:
+                return shape,index
+        return None
 
-    def get_sum_area(self):
-        list_of_area_shapes=[shape.get_area() for shape in self.shapes]
-        return sum(list_of_area_shapes)
-
-
-#==========================================7==============================================#
-#==========================================7==============================================#
-#==========================================7==============================================#
-
-
-    def return_object_by_id(self, id_input) -> Shape | None:
-
-        try:
-            the_shape = None
-            for shape in self.shapes:
-                if shape.shape_id == id_input:
-                    the_shape = shape
-                    break
-            return the_shape
-        except (ValueError, TypeError):
-            print("invalid value ")
-            return None
-#==========================================7==============================================#
 
     def return_id(self):
         """
@@ -193,51 +157,3 @@ class ShapeManager:
             if shape.shape_id>correct_id:
                 correct_id = shape.shape_id
         return correct_id+1
-
-#==========================================7==============================================#
-
-    def check_choice(self, num, shape_id):
-        if num == "1":
-            length = int(user_input("enter the rid length: "))
-            return self.create_square(shape_id, length)
-        if num == "2":
-            length = int(user_input("enter the length: "))
-            width= int(user_input("enter the width: "))
-            return self.create_rectangle(shape_id, length, width)
-        if num == "3":
-            radius = int(user_input("enter the radius: "))
-            return self.create_circle(shape_id, radius)
-        print("The shape does not exist in the system")
-        return None
-
-#==========================================7==============================================#
-
-    def create_shapes(self, shape_id, shape):
-        new_shape = None
-
-        if shape["type"] == "square":
-            new_shape = Square(shape_id, shape["length"])
-        if shape["type"] == "rectangle":
-            new_shape = Rectangle(shape_id, shape["length"], shape["width"])
-        if shape["type"] == "circle":
-            new_shape = Circle(shape_id, shape["radius"])
-        return new_shape
-
-#==========================================7==============================================#
-
-    def create_square(self, shape_id, rid_length):
-        return Square(shape_id, rid_length)
-
-#==========================================7==============================================#
-
-    def create_rectangle(self, shape_id, length, width):
-        return Rectangle(shape_id, length, width)
-
-#==========================================7==============================================#
-
-    def create_circle(self, shape_id, radius):
-        return Circle(shape_id, radius)
-if __name__ == '__main__':
-    s=ShapeManager()
-    d={""}
-    print(s.update_shape(3,))
