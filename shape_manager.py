@@ -39,14 +39,28 @@ class ShapeManager:
 
 #==========================================2==============================================#
 
-    def create_shape(self, shape, shape_id):
+    def create_shape(self, shape: dict):
         """
         docstring
         :param shape:
         :return:
         """
-        shape = self.check_choice(shape, shape_id)
-        return shape
+        try:
+            shape_id = self.return_id()
+            new_shape=self.create_shapes(shape_id,shape)
+            self.shapes.append(new_shape)
+            return new_shape
+        except KeyError:
+            raise KeyError
+
+    # def create_shape(self, shape, shape_id):
+    #     """
+    #     docstring
+    #     :param shape:
+    #     :return:
+    #     """
+    #     shape = self.check_choice(shape, shape_id)
+    #     return shape
 
 #==========================================3==============================================#
 
@@ -62,20 +76,35 @@ class ShapeManager:
 
 #==========================================4==============================================#
 
-    def update_shape(self, shape_id):
-        """
-        docstring
-        תפקידה ליצור צורה חדשה
-        :param shape_id: מקבלת מספר מזהה ייחודי (ע"י הפונקצייה למעלה)
-        :return:
-        """
-        obj = self.return_object_by_id(shape_id)
-        if not obj:
-            return None
-        dict_of_type_objs={"square": "1", "rectangle": "2", "circle": "3"}
-        update=self.create_shape(dict_of_type_objs[obj.shape_type],shape_id)
-        self.shapes[self.shapes.index(obj)]=update
-        return "The shape updated"
+    def update_shape(self, shape_id, new_data):
+        try:
+            update_obj=self.create_shapes(shape_id,new_data)
+            obj = self.return_object_by_id(shape_id)
+            self.shapes[self.shapes.index(obj)]=update_obj
+            return update_obj
+        except KeyError:
+            raise KeyError
+        except ValueError:
+            raise ValueError
+
+
+
+
+
+    # def update_shape(self, shape_id):
+    #     """
+    #     docstring
+    #     תפקידה ליצור צורה חדשה
+    #     :param shape_id: מקבלת מספר מזהה ייחודי (ע"י הפונקצייה למעלה)
+    #     :return:
+    #     """
+    #     obj = self.return_object_by_id(shape_id)
+    #     if not obj:
+    #         return None
+    #     dict_of_type_objs={"square": "1", "rectangle": "2", "circle": "3"}
+    #     update=self.create_shape(dict_of_type_objs[obj.shape_type],shape_id)
+    #     self.shapes[self.shapes.index(obj)]=update
+    #     return "The shape updated"
 
 
 #==========================================5==============================================#
@@ -87,8 +116,10 @@ class ShapeManager:
         :return:
         """
         the_shape=self.return_object_by_id(shape_id)
-        if the_shape:
-            self.shapes.remove(the_shape)
+        if not the_shape:
+            raise KeyError
+        self.shapes.remove(the_shape)
+        return the_shape
 
 #==========================================6==============================================#
 
@@ -118,6 +149,16 @@ class ShapeManager:
                 elif shape["type"]=="circle":
                     self.shapes.append(Circle(shape["id"], shape["radius"]))
 
+
+    def get_one_shape(self, shape_id):
+        try:
+            return self.return_object_by_id(shape_id).to_dict()
+        except AttributeError:
+            raise AttributeError
+
+    def get_sum_area(self):
+        list_of_area_shapes=[shape.get_area() for shape in self.shapes]
+        return sum(list_of_area_shapes)
 
 
 #==========================================7==============================================#
@@ -171,6 +212,19 @@ class ShapeManager:
 
 #==========================================7==============================================#
 
+    def create_shapes(self, shape_id, shape):
+        new_shape = None
+
+        if shape["type"] == "square":
+            new_shape = Square(shape_id, shape["length"])
+        if shape["type"] == "rectangle":
+            new_shape = Rectangle(shape_id, shape["length"], shape["width"])
+        if shape["type"] == "circle":
+            new_shape = Circle(shape_id, shape["radius"])
+        return new_shape
+
+#==========================================7==============================================#
+
     def create_square(self, shape_id, rid_length):
         return Square(shape_id, rid_length)
 
@@ -183,3 +237,7 @@ class ShapeManager:
 
     def create_circle(self, shape_id, radius):
         return Circle(shape_id, radius)
+if __name__ == '__main__':
+    s=ShapeManager()
+    d={""}
+    print(s.update_shape(3,))

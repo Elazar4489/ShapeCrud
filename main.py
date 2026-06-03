@@ -1,3 +1,6 @@
+
+# github = https://github.com/Elazar4489/ShapeCrud.git
+
 from shape_manager import ShapeManager, logger
 from utils import user_input
 
